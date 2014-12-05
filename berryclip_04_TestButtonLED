@@ -1,0 +1,93 @@
+#!/usr/bin/python
+#--------------------------------------   
+#    ___                   ________    
+#   / _ )___ __________ __/ ___/ (_)__ 
+#  / _  / -_) __/ __/ // / /__/ / / _ \
+# /____/\__/_/ /_/  \_, /\___/_/_/ .__/
+#                  /___/        /_/  
+#  
+#       BerryClip - 6 LED Board
+#
+# This script lights the 6 LEDs in sequence
+# when the switch is pressed.
+#
+# Author : Matt Hawkins
+# Date   : 12/11/2012
+#
+# http://www.raspberrypi-spy.co.uk/
+#
+#-------------------------------------- 
+
+# Import required libraries
+import RPi.GPIO as GPIO
+import time
+
+# Tell GPIO library to use GPIO references
+GPIO.setmode(GPIO.BCM)
+
+print "Setup GPIO pins as inputs and outputs"
+
+# Set LED GPIO pins as outputs
+GPIO.setup(24, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(23, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+GPIO.setup(22, GPIO.OUT)
+GPIO.setup(4, GPIO.OUT)
+
+# Set Switch GPIO as input
+GPIO.setup(7 , GPIO.IN)
+
+print "Press the button"
+
+# Wrap main content in a try block so we can
+# catch the user pressing CTRL-C and run the
+# GPIO cleanup function. This will also prevent
+# the user seeing lots of unnecessary error
+# messages.
+try:
+
+  # Loop until users quits with CTRL-C
+  while True :
+
+    # Turn off LEDs
+    GPIO.output(24, False)
+    GPIO.output(27, False)
+    GPIO.output(23, False)
+    GPIO.output(18, False)
+    GPIO.output(22, False)
+    GPIO.output(4, False)
+   
+    if GPIO.input(7)==1:
+      print "  Button pressed!"
+	
+	#Unnecessary Code - Adam Stubbs        
+      # Turn off LEDs
+#      GPIO.output(24, False)
+#      GPIO.output(27, False)
+#      GPIO.output(23, False)
+#      GPIO.output(18, False)
+#      GPIO.output(22, False)
+#      GPIO.output(4, False)
+        
+      # Turn on LEDs in sequence
+      GPIO.output(24 , True)
+      time.sleep(0.5)
+      GPIO.output(27, True)
+      time.sleep(0.5)
+      GPIO.output(23, True)
+      time.sleep(0.5)
+      GPIO.output(18, True)
+      time.sleep(0.5)
+      GPIO.output(22, True)
+      time.sleep(0.5)
+      GPIO.output(4, True)
+      
+      # Wait 2 seconds
+      time.sleep(2)
+      
+      print "Press the button (CTRL-C to exit)"
+      
+except KeyboardInterrupt:
+  # Reset GPIO settings
+  GPIO.cleanup()
