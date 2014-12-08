@@ -1,4 +1,4 @@
 Network75-berryclip
 ===================
 
-Modified Code for Network75 berryclips
+Modified BerryClip Code for Network75 Ascells Board
